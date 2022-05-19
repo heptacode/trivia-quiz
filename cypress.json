@@ -1,0 +1,6 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "componentFolder": "src",
+  "integrationFolder": "tests/e2e",
+  "testFiles": "**/*.spec.ts"
+}
