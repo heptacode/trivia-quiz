@@ -36,6 +36,7 @@
     "esbuild-darwin-64": "latest",
     "jest": "latest",
     "prettier": "latest",
+    "simple-zustand-devtools": "latest",
     "ts-jest": "latest",
     "ts-node": "latest",
     "typescript": "latest",

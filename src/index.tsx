@@ -1,10 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from '@/App';
 import '@/index.css';
+import Router from '@/Router';
+import { AppBar, Typography } from '@mui/material';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <AppBar position="fixed">
+      <Typography variant="h5" noWrap>
+        &nbsp;
+      </Typography>
+    </AppBar>
+    <Router />
   </React.StrictMode>
 );

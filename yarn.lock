@@ -5016,41 +5016,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-vite-template@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "react-vite-template@workspace:."
-  dependencies:
-    "@babel/core": latest
-    "@cypress/vite-dev-server": latest
-    "@emotion/react": latest
-    "@emotion/styled": latest
-    "@jest/types": latest
-    "@mui/icons-material": latest
-    "@mui/material": latest
-    "@testing-library/jest-dom": latest
-    "@testing-library/react": latest
-    "@types/jest": latest
-    "@types/node": latest
-    "@types/prettier": latest
-    "@types/react": latest
-    "@types/react-dom": latest
-    "@vitejs/plugin-react": latest
-    axios: latest
-    cypress: latest
-    esbuild-darwin-64: latest
-    jest: latest
-    prettier: latest
-    react: latest
-    react-dom: latest
-    react-router-dom: latest
-    ts-jest: latest
-    ts-node: latest
-    typescript: latest
-    vite: latest
-    zustand: latest
-  languageName: unknown
-  linkType: soft
-
 "react@npm:latest":
   version: 18.1.0
   resolution: "react@npm:18.1.0"
@@ -5295,6 +5260,19 @@ __metadata:
   version: 3.0.7
   resolution: "signal-exit@npm:3.0.7"
   checksum: a2f098f247adc367dffc27845853e9959b9e88b01cb301658cfe4194352d8d2bb32e18467c786a7fe15f1d44b233ea35633d076d5e737870b7139949d1ab6318
+  languageName: node
+  linkType: hard
+
+"simple-zustand-devtools@npm:latest":
+  version: 1.0.1
+  resolution: "simple-zustand-devtools@npm:1.0.1"
+  peerDependencies:
+    "@types/react": ">=16.8.23"
+    "@types/react-dom": ">=16.8.4"
+    react: ">=16.8.6"
+    react-dom: ">=16.8.6"
+    zustand: ">=1.0.2"
+  checksum: a306f6306957c2d439f851444c804416e1264a0589bc9af2de0294a3cefe40ce22ee7b0e2b9e8df5d76eeccad3a813c043b1ac5d0aadda0a6e9f9b4f795baabd
   languageName: node
   linkType: hard
 
@@ -5666,6 +5644,42 @@ __metadata:
   checksum: 16a8cd090224dd176eee23837cbe7573ca0fa297d7e468ab5e1c02d49a4e9a97bb05fef11320605eac516f91d54c57838a25864e8680e27b069a5231d8264977
   languageName: node
   linkType: hard
+
+"trivia-quiz@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "trivia-quiz@workspace:."
+  dependencies:
+    "@babel/core": latest
+    "@cypress/vite-dev-server": latest
+    "@emotion/react": latest
+    "@emotion/styled": latest
+    "@jest/types": latest
+    "@mui/icons-material": latest
+    "@mui/material": latest
+    "@testing-library/jest-dom": latest
+    "@testing-library/react": latest
+    "@types/jest": latest
+    "@types/node": latest
+    "@types/prettier": latest
+    "@types/react": latest
+    "@types/react-dom": latest
+    "@vitejs/plugin-react": latest
+    axios: latest
+    cypress: latest
+    esbuild-darwin-64: latest
+    jest: latest
+    prettier: latest
+    react: latest
+    react-dom: latest
+    react-router-dom: latest
+    simple-zustand-devtools: latest
+    ts-jest: latest
+    ts-node: latest
+    typescript: latest
+    vite: latest
+    zustand: latest
+  languageName: unknown
+  linkType: soft
 
 "ts-jest@npm:latest":
   version: 28.0.2
