@@ -1,4 +1,6 @@
-export const getQuiz = {
+import { QuizResponse } from '@/types';
+
+export const getQuiz: QuizResponse = {
   response_code: 0,
   results: [
     {
