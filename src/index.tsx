@@ -1,6 +1,6 @@
 import '@/index.css';
 import Router from '@/Router';
-import { AppBar, Typography } from '@mui/material';
+import { AppBar, Container, Typography } from '@mui/material';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -11,6 +11,8 @@ createRoot(document.getElementById('root')!).render(
         &nbsp;
       </Typography>
     </AppBar>
-    <Router />
+    <Container maxWidth="sm">
+      <Router />
+    </Container>
   </React.StrictMode>
 );
