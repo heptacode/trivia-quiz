@@ -1,3 +1,3 @@
-export default function Review() {
+export function Review() {
   return <>Review</>;
 }

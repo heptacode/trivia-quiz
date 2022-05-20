@@ -1,5 +1,5 @@
 import '@/index.css';
-import Router from '@/Router';
+import { Router } from '@/Router';
 import { AppBar, Container, Typography } from '@mui/material';
 import React from 'react';
 import { createRoot } from 'react-dom/client';

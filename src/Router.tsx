@@ -1,11 +1,11 @@
-import Home from '@/views/Home';
-import NotFound from '@/views/NotFound';
-import Quiz from '@/views/Quiz';
-import Result from '@/views/Result';
-import Review from '@/views/Review';
+import { Home } from '@/views/Home';
+import { NotFound } from '@/views/NotFound';
+import { Quiz } from '@/views/Quiz';
+import { Result } from '@/views/Result';
+import { Review } from '@/views/Review';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-export default function Router() {
+export function Router() {
   return (
     <BrowserRouter>
       <Routes>

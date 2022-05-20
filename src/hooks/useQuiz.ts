@@ -3,7 +3,7 @@ import { useGlobalStore } from '@/store/useGlobalStore';
 import { Choice } from '@/types';
 import { useEffect, useState } from 'react';
 
-export default function useQuiz() {
+export function useQuiz() {
   const [quizIndex, setQuizIndex] = useState<number>(0);
   const [question, setQuestion] = useState<string>('');
   const [choice, setChoice] = useState<string>('');
@@ -34,9 +34,11 @@ export default function useQuiz() {
 
     if (isAnswer) {
       setCorrectQuestions(correctQuestions + 1);
+      setIsIncorrectSnackbarOpen(false);
       setIsCorrectSnackbarOpen(true);
     } else {
       setIncorrectQuestions(incorrectQuestions + 1);
+      setIsCorrectSnackbarOpen(false);
       setIsIncorrectSnackbarOpen(true);
     }
 

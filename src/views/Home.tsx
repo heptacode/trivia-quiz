@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 
-export default function Home() {
+export function Home() {
   return (
     <>
       <Button>시작하기</Button>
