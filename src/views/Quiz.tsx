@@ -1,4 +1,4 @@
-import useQuiz from '@/hooks/useQuiz';
+import { useQuiz } from '@/hooks/useQuiz';
 import { useGlobalStore } from '@/store/useGlobalStore';
 import { Choice } from '@/types';
 import { Check, KeyboardArrowRight } from '@mui/icons-material';
@@ -15,7 +15,7 @@ import {
   Snackbar,
 } from '@mui/material';
 
-export default function Quiz() {
+export function Quiz() {
   const {
     quizIndex,
     quizLength,
@@ -70,12 +70,22 @@ export default function Quiz() {
           }
         />
       </Card>
-      <Snackbar open={isCorrectSnackbarOpen} autoHideDuration={6000} onClose={closeSnackbar}>
+      <Snackbar
+        open={isCorrectSnackbarOpen}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        autoHideDuration={4000}
+        onClose={closeSnackbar}
+      >
         <Alert onClose={closeSnackbar} severity="success" sx={{ width: '100%' }}>
           맞았습니다!!
         </Alert>
       </Snackbar>
-      <Snackbar open={isIncorrectSnackbarOpen} autoHideDuration={6000} onClose={closeSnackbar}>
+      <Snackbar
+        open={isIncorrectSnackbarOpen}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        autoHideDuration={4000}
+        onClose={closeSnackbar}
+      >
         <Alert onClose={closeSnackbar} severity="error" sx={{ width: '100%' }}>
           틀렸습니다
         </Alert>
