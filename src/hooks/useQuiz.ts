@@ -8,6 +8,8 @@ export default function useQuiz() {
   const [question, setQuestion] = useState<string>('');
   const [choice, setChoice] = useState<string>('');
   const [choices, setChoices] = useState<Choice[]>([]);
+  const [isCorrectSnackbarOpen, setIsCorrectSnackbarOpen] = useState<boolean>(false);
+  const [isIncorrectSnackbarOpen, setIsIncorrectSnackbarOpen] = useState<boolean>(false);
   const { correctQuestions, setCorrectQuestions, incorrectQuestions, setIncorrectQuestions } =
     useGlobalStore();
 
@@ -32,8 +34,10 @@ export default function useQuiz() {
 
     if (isAnswer) {
       setCorrectQuestions(correctQuestions + 1);
+      setIsCorrectSnackbarOpen(true);
     } else {
       setIncorrectQuestions(incorrectQuestions + 1);
+      setIsIncorrectSnackbarOpen(true);
     }
 
     setChoice('');
@@ -41,5 +45,25 @@ export default function useQuiz() {
     setQuizIndex(quizIndex + 1);
   }
 
-  return { quizIndex, question, choice, setChoice, choices, submit };
+  function closeSnackbar(event?: any, reason?: any) {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setIsCorrectSnackbarOpen(false);
+    setIsIncorrectSnackbarOpen(false);
+  }
+
+  return {
+    quizIndex,
+    quizLength: getQuiz.results.length,
+    question,
+    choice,
+    setChoice,
+    choices,
+    submit,
+    isCorrectSnackbarOpen,
+    isIncorrectSnackbarOpen,
+    closeSnackbar,
+  };
 }
