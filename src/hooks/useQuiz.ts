@@ -27,6 +27,8 @@ export function useQuiz() {
   useEffect(() => {
     if (quizIndex < 0) {
       return navigate('/');
+    } else if (quizIndex >= quizLength) {
+      return navigate('/result');
     }
 
     quiz = getQuiz.results[quizIndex];
@@ -60,6 +62,7 @@ export function useQuiz() {
     if (quizIndex < quizLength - 1) {
       setQuizIndex(quizIndex + 1);
     } else {
+      setQuizIndex(quizIndex + 1);
       setFinishTime();
       navigate('/result');
     }
