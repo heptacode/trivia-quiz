@@ -20,6 +20,7 @@
     "@nivo/tooltip": "latest",
     "axios": "latest",
     "d3-scale": "latest",
+    "dayjs": "latest",
     "prop-types": "latest",
     "react": "latest",
     "react-dom": "latest",

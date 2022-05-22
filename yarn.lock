@@ -2742,7 +2742,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.10.4":
+"dayjs@npm:^1.10.4, dayjs@npm:latest":
   version: 1.11.2
   resolution: "dayjs@npm:1.11.2"
   checksum: 78f8bd04a9e5f5554aa06eacda65a7d59e162d39f621a46fd34fb3b51367c3662426d86b4e2f4ac535f81e0c4d5af3e8a83b37e672412eb556267d726c61f8f3
@@ -6018,6 +6018,7 @@ __metadata:
     axios: latest
     cypress: latest
     d3-scale: latest
+    dayjs: latest
     esbuild-darwin-64: latest
     jest: latest
     prettier: latest
