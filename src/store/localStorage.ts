@@ -50,6 +50,7 @@ export class LocalStorage {
 
   static init() {
     window.localStorage.removeItem(`${prefix}:${property.startTime}`);
+    window.localStorage.removeItem(`${prefix}:${property.finishTime}`);
     window.localStorage.removeItem(`${prefix}:${property.quizIndex}`);
     window.localStorage.removeItem(`${prefix}:${property.correctQuestions}`);
     window.localStorage.removeItem(`${prefix}:${property.incorrectQuestions}`);
