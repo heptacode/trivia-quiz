@@ -1,5 +1,4 @@
 import { useQuiz } from '@/hooks/useQuiz';
-import { useGlobalStore } from '@/store/useGlobalStore';
 import { Choice } from '@/types';
 import { Check, KeyboardArrowRight } from '@mui/icons-material';
 import {
@@ -28,11 +27,10 @@ export function Quiz() {
     isIncorrectSnackbarOpen,
     closeSnackbar,
   } = useQuiz();
-  const { correctQuestions, incorrectQuestions } = useGlobalStore();
 
   return (
     <>
-      <Card sx={{ maxWidth: 400, mt: 10 }}>
+      <Card sx={{ mt: 10 }}>
         <CardHeader title={<div dangerouslySetInnerHTML={{ __html: question }}></div>} />
         <CardContent>
           <RadioGroup name="radio-buttons-group" onChange={event => setChoice(event.target.value)}>
@@ -42,13 +40,11 @@ export function Quiz() {
                   key={index}
                   control={<Radio />}
                   value={choice.value}
-                  label={choice.value + choice.isAnswer}
+                  label={<div dangerouslySetInnerHTML={{ __html: choice.value }}></div>}
                 />
               );
             })}
           </RadioGroup>
-          quizIndex: {quizIndex} / correctQuestions: {correctQuestions} / incorrectQuestions:{' '}
-          {incorrectQuestions}
         </CardContent>
         <MobileStepper
           steps={quizLength}
@@ -72,7 +68,7 @@ export function Quiz() {
       </Card>
       <Snackbar
         open={isCorrectSnackbarOpen}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         autoHideDuration={4000}
         onClose={closeSnackbar}
       >
@@ -82,7 +78,7 @@ export function Quiz() {
       </Snackbar>
       <Snackbar
         open={isIncorrectSnackbarOpen}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         autoHideDuration={4000}
         onClose={closeSnackbar}
       >

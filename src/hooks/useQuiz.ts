@@ -2,20 +2,33 @@ import { getQuiz } from '@/api';
 import { useGlobalStore } from '@/store/useGlobalStore';
 import { Choice } from '@/types';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function useQuiz() {
-  const [quizIndex, setQuizIndex] = useState<number>(0);
+  const navigate = useNavigate();
+  const {
+    setFinishTime,
+    quizIndex,
+    setQuizIndex,
+    correctQuestions,
+    setCorrectQuestions,
+    incorrectQuestions,
+    setIncorrectQuestions,
+  } = useGlobalStore();
   const [question, setQuestion] = useState<string>('');
   const [choice, setChoice] = useState<string>('');
   const [choices, setChoices] = useState<Choice[]>([]);
   const [isCorrectSnackbarOpen, setIsCorrectSnackbarOpen] = useState<boolean>(false);
   const [isIncorrectSnackbarOpen, setIsIncorrectSnackbarOpen] = useState<boolean>(false);
-  const { correctQuestions, setCorrectQuestions, incorrectQuestions, setIncorrectQuestions } =
-    useGlobalStore();
 
   let quiz = getQuiz.results[quizIndex];
+  const quizLength = getQuiz.results.length;
 
   useEffect(() => {
+    if (quizIndex < 0) {
+      return navigate('/');
+    }
+
     quiz = getQuiz.results[quizIndex];
 
     setQuestion(quiz.question);
@@ -44,7 +57,12 @@ export function useQuiz() {
 
     setChoice('');
 
-    setQuizIndex(quizIndex + 1);
+    if (quizIndex < quizLength - 1) {
+      setQuizIndex(quizIndex + 1);
+    } else {
+      setFinishTime();
+      navigate('/result');
+    }
   }
 
   function closeSnackbar(event?: any, reason?: any) {
@@ -58,7 +76,7 @@ export function useQuiz() {
 
   return {
     quizIndex,
-    quizLength: getQuiz.results.length,
+    quizLength,
     question,
     choice,
     setChoice,
