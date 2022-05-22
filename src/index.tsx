@@ -1,3 +1,4 @@
+import '@/i18n';
 import '@/index.css';
 import { Router } from '@/Router';
 import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
