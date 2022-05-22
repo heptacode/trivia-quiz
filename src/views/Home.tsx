@@ -1,8 +1,9 @@
+import { useHome } from '@/hooks/useHome';
 import { Box, Button, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 
 export function Home() {
-  const navigate = useNavigate();
+  const { startQuiz } = useHome();
+
   return (
     <Box
       sx={{
@@ -16,7 +17,7 @@ export function Home() {
         Trivia Quiz
       </Typography>
 
-      <Button onClick={() => navigate('/quiz')}>시작하기</Button>
+      <Button onClick={startQuiz}>시작하기</Button>
     </Box>
   );
 }
