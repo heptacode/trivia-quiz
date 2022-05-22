@@ -1,7 +1,6 @@
-import { getQuiz } from '@/api';
 import { useGlobalStore } from '@/store/useGlobalStore';
-import { LocalStorage } from '@/store/useLocalStorage';
-import { Choice } from '@/types';
+import { localStorage } from '@/store/useLocalStorage';
+import { Choice, Quiz } from '@/types';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,9 +12,8 @@ export function useQuiz() {
   const [choices, setChoices] = useState<Choice[]>([]);
   const [isCorrectSnackbarOpen, setIsCorrectSnackbarOpen] = useState<boolean>(false);
   const [isIncorrectSnackbarOpen, setIsIncorrectSnackbarOpen] = useState<boolean>(false);
-
-  let quiz = getQuiz.results[quizIndex];
-  const quizLength = getQuiz.results.length;
+  let currentQuiz: Quiz = localStorage.quizzes[quizIndex];
+  const quizLength: number = localStorage.quizzes.length;
 
   useEffect(() => {
     if (quizIndex < 0) {
@@ -24,13 +22,13 @@ export function useQuiz() {
       return navigate('/result');
     }
 
-    quiz = getQuiz.results[quizIndex];
+    currentQuiz = localStorage.quizzes[quizIndex];
 
-    setQuestion(quiz.question);
+    setQuestion(currentQuiz.question);
 
     const _choices: Choice[] = [];
-    _choices.push({ value: quiz.correct_answer, isAnswer: true });
-    quiz.incorrect_answers.forEach((incorrectAnswer: string) => {
+    _choices.push({ value: currentQuiz.correct_answer, isAnswer: true });
+    currentQuiz.incorrect_answers.forEach((incorrectAnswer: string) => {
       _choices.push({ value: incorrectAnswer, isAnswer: false });
     });
     _choices.sort(() => Math.random() - 0.5);
@@ -41,11 +39,11 @@ export function useQuiz() {
     const isAnswer = choices.find((_choice: Choice) => _choice.value === choice)?.isAnswer;
 
     if (isAnswer) {
-      LocalStorage.addCorrectQuestions();
+      localStorage.addCorrectQuestions();
       setIsIncorrectSnackbarOpen(false);
       setIsCorrectSnackbarOpen(true);
     } else {
-      LocalStorage.addIncorrectQuestions();
+      localStorage.addIncorrectQuestions();
       setIsCorrectSnackbarOpen(false);
       setIsIncorrectSnackbarOpen(true);
     }
@@ -56,7 +54,7 @@ export function useQuiz() {
       setQuizIndex(quizIndex + 1);
     } else {
       setQuizIndex(quizIndex + 1);
-      LocalStorage.setFinishTime();
+      localStorage.setFinishTime();
       navigate('/result');
     }
   }

@@ -1,5 +1,6 @@
+import { getQuiz } from '@/api';
 import { useGlobalStore } from '@/store/useGlobalStore';
-import { LocalStorage } from '@/store/useLocalStorage';
+import { localStorage } from '@/store/useLocalStorage';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +12,8 @@ export function useHome() {
 
   function startQuiz() {
     navigate('/quiz');
-    LocalStorage.setStartTime();
+    localStorage.setStartTime();
+    localStorage.setQuizzes(getQuiz.results);
     setQuizIndex(0);
   }
 

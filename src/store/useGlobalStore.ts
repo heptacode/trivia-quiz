@@ -1,22 +1,17 @@
-import { LocalStorage } from '@/store/useLocalStorage';
+import { localStorage } from '@/store/useLocalStorage';
+import { GlobalState } from '@/types';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 import create from 'zustand';
 
-interface GlobalState {
-  quizIndex: number;
-  setQuizIndex: (quizIndex: number) => void;
-  init: () => void;
-}
-
 export const useGlobalStore = create<GlobalState>(set => ({
-  quizIndex: LocalStorage.quizIndex,
+  quizIndex: localStorage.quizIndex,
   setQuizIndex: (quizIndex: number) => {
     set({ quizIndex });
-    LocalStorage.setQuizIndex(quizIndex);
+    localStorage.setQuizIndex(quizIndex);
   },
   init: () => {
     set({ quizIndex: -1 });
-    LocalStorage.init();
+    localStorage.init();
   },
 }));
 

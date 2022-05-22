@@ -1,5 +1,5 @@
 import { useGlobalStore } from '@/store/useGlobalStore';
-import { LocalStorage } from '@/store/useLocalStorage';
+import { localStorage } from '@/store/useLocalStorage';
 import { useNavigate } from 'react-router-dom';
 
 export function useResult() {
@@ -18,9 +18,9 @@ export function useResult() {
   return {
     retry,
     review,
-    startTime: LocalStorage.startTime,
-    finishTime: LocalStorage.finishTime,
-    correctQuestions: LocalStorage.correctQuestions,
-    incorrectQuestions: LocalStorage.incorrectQuestions,
+    startTime: localStorage.startTime,
+    finishTime: localStorage.finishTime,
+    correctQuestions: localStorage.correctQuestions,
+    incorrectQuestions: localStorage.incorrectQuestions,
   };
 }
