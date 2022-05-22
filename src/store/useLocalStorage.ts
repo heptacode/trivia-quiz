@@ -12,16 +12,16 @@ export class LocalStorage {
     const time = window.localStorage.getItem(`${prefix}:${property.startTime}`) || '';
     return new Date(time);
   }
-  static setStartTime(time: Date) {
-    window.localStorage.setItem(`${prefix}:${property.startTime}`, time.toISOString());
+  static setStartTime() {
+    window.localStorage.setItem(`${prefix}:${property.startTime}`, new Date().toISOString());
   }
 
   static get finishTime(): Date {
     const time = window.localStorage.getItem(`${prefix}:${property.finishTime}`) || '';
     return new Date(time);
   }
-  static setFinishTime(time: Date) {
-    window.localStorage.setItem(`${prefix}:${property.finishTime}`, time.toISOString());
+  static setFinishTime() {
+    window.localStorage.setItem(`${prefix}:${property.finishTime}`, new Date().toISOString());
   }
 
   static get quizIndex(): number {
@@ -34,17 +34,20 @@ export class LocalStorage {
   static get correctQuestions(): number {
     return Number(window.localStorage.getItem(`${prefix}:${property.correctQuestions}`) || 0);
   }
-  static setCorrectQuestions(correctQuestions: number) {
-    window.localStorage.setItem(`${prefix}:${property.correctQuestions}`, String(correctQuestions));
+  static addCorrectQuestions() {
+    window.localStorage.setItem(
+      `${prefix}:${property.correctQuestions}`,
+      String(this.correctQuestions + 1)
+    );
   }
 
   static get incorrectQuestions(): number {
     return Number(window.localStorage.getItem(`${prefix}:${property.incorrectQuestions}`) || 0);
   }
-  static setIncorrectQuestions(incorrectQuestions: number) {
+  static addIncorrectQuestions() {
     window.localStorage.setItem(
       `${prefix}:${property.incorrectQuestions}`,
-      String(incorrectQuestions)
+      String(this.incorrectQuestions + 1)
     );
   }
 

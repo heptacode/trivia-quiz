@@ -1,20 +1,13 @@
 import { getQuiz } from '@/api';
 import { useGlobalStore } from '@/store/useGlobalStore';
+import { LocalStorage } from '@/store/useLocalStorage';
 import { Choice } from '@/types';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function useQuiz() {
   const navigate = useNavigate();
-  const {
-    setFinishTime,
-    quizIndex,
-    setQuizIndex,
-    correctQuestions,
-    setCorrectQuestions,
-    incorrectQuestions,
-    setIncorrectQuestions,
-  } = useGlobalStore();
+  const { quizIndex, setQuizIndex } = useGlobalStore();
   const [question, setQuestion] = useState<string>('');
   const [choice, setChoice] = useState<string>('');
   const [choices, setChoices] = useState<Choice[]>([]);
@@ -48,11 +41,11 @@ export function useQuiz() {
     const isAnswer = choices.find((_choice: Choice) => _choice.value === choice)?.isAnswer;
 
     if (isAnswer) {
-      setCorrectQuestions(correctQuestions + 1);
+      LocalStorage.addCorrectQuestions();
       setIsIncorrectSnackbarOpen(false);
       setIsCorrectSnackbarOpen(true);
     } else {
-      setIncorrectQuestions(incorrectQuestions + 1);
+      LocalStorage.addIncorrectQuestions();
       setIsCorrectSnackbarOpen(false);
       setIsIncorrectSnackbarOpen(true);
     }
@@ -63,7 +56,7 @@ export function useQuiz() {
       setQuizIndex(quizIndex + 1);
     } else {
       setQuizIndex(quizIndex + 1);
-      setFinishTime();
+      LocalStorage.setFinishTime();
       navigate('/result');
     }
   }

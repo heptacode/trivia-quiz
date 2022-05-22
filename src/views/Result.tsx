@@ -6,7 +6,8 @@ import green from '@mui/material/colors/green';
 import red from '@mui/material/colors/red';
 
 export function Result() {
-  const { retry, startTime, finishTime, correctQuestions, incorrectQuestions } = useResult();
+  const { retry, review, startTime, finishTime, correctQuestions, incorrectQuestions } =
+    useResult();
 
   const chartData = [
     {
@@ -36,6 +37,7 @@ export function Result() {
         </ChartArea>
 
         <Button onClick={retry}>다시 풀기</Button>
+        <Button onClick={review}>오답 노트</Button>
       </CardContent>
     </Card>
   );
