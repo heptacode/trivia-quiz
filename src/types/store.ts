@@ -1,4 +1,4 @@
-import { Quiz } from './quiz';
+import { Choice, Quiz } from './quiz';
 
 export interface GlobalState {
   quizIndex: number;
@@ -16,8 +16,10 @@ export interface LocalStorage {
   quizIndex: number;
   setQuizIndex: (quizIndex: number) => void;
   correctQuestions: number;
-  addCorrectQuestions: () => void;
+  addCorrectQuestion: () => void;
   incorrectQuestions: number;
-  addIncorrectQuestions: () => void;
+  addIncorrectQuestion: () => void;
+  records: Choice[];
+  addRecord: (record: Choice) => void;
   init: () => void;
 }
