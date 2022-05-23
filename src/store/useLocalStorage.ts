@@ -1,4 +1,4 @@
-import { LocalStorage, Quiz } from '@/types';
+import { Choice, LocalStorage, Quiz } from '@/types';
 
 const prefix = 'triviaQuiz';
 const property = {
@@ -8,66 +8,78 @@ const property = {
   quizIndex: 'quizIndex',
   correctQuestions: 'correctQuestions',
   incorrectQuestions: 'incorrectQuestions',
+  records: 'records',
 };
+
+function set<T>(key: string, value: T): void {
+  window.localStorage.setItem(`${prefix}:${key}`, JSON.stringify(value));
+}
+
+function get<T>(key: string, fallbackValue?: string | boolean | number | any[]): T {
+  return JSON.parse(
+    window.localStorage.getItem(`${prefix}:${key}`) ?? JSON.stringify(fallbackValue)
+  ) as T;
+}
+
+function remove(key: string): void {
+  window.localStorage.removeItem(`${prefix}:${key}`);
+}
 
 export const localStorage: LocalStorage = {
   get startTime(): Date {
-    const time = window.localStorage.getItem(`${prefix}:${property.startTime}`) || '';
+    const time = get<string>(property.startTime);
     return new Date(time);
   },
   setStartTime() {
-    window.localStorage.setItem(`${prefix}:${property.startTime}`, new Date().toISOString());
+    set<string>(property.startTime, new Date().toISOString());
   },
 
   get finishTime(): Date {
-    const time = window.localStorage.getItem(`${prefix}:${property.finishTime}`) || '';
+    const time = get<string>(property.finishTime);
     return new Date(time);
   },
   setFinishTime() {
-    window.localStorage.setItem(`${prefix}:${property.finishTime}`, new Date().toISOString());
+    set<string>(property.finishTime, new Date().toISOString());
   },
 
   get quizzes(): Quiz[] {
-    return JSON.parse(
-      window.localStorage.getItem(`${prefix}:${property.quizzes}`) || '[]'
-    ) as Quiz[];
+    return get<Quiz[]>(property.quizzes, []);
   },
   setQuizzes(quizzes: Quiz[]) {
-    window.localStorage.setItem(`${prefix}:${property.quizzes}`, JSON.stringify(quizzes));
+    set<Quiz[]>(property.quizzes, quizzes);
   },
 
   get quizIndex(): number {
-    return Number(window.localStorage.getItem(`${prefix}:${property.quizIndex}`) || -1);
+    return get<number>(property.quizIndex, -1);
   },
   setQuizIndex(quizIndex: number) {
-    window.localStorage.setItem(`${prefix}:${property.quizIndex}`, String(quizIndex));
+    set<number>(property.quizIndex, quizIndex);
   },
 
   get correctQuestions(): number {
-    return Number(window.localStorage.getItem(`${prefix}:${property.correctQuestions}`) || 0);
+    return get<number>(property.correctQuestions, 0);
   },
-  addCorrectQuestions() {
-    window.localStorage.setItem(
-      `${prefix}:${property.correctQuestions}`,
-      String(this.correctQuestions + 1)
-    );
+  addCorrectQuestion() {
+    set<number>(property.correctQuestions, this.correctQuestions + 1);
   },
 
   get incorrectQuestions(): number {
-    return Number(window.localStorage.getItem(`${prefix}:${property.incorrectQuestions}`) || 0);
+    return get<number>(property.incorrectQuestions, 0);
   },
-  addIncorrectQuestions() {
-    window.localStorage.setItem(
-      `${prefix}:${property.incorrectQuestions}`,
-      String(this.incorrectQuestions + 1)
-    );
+  addIncorrectQuestion() {
+    set<number>(property.incorrectQuestions, this.incorrectQuestions + 1);
+  },
+
+  get records(): Choice[] {
+    return get<Choice[]>(property.records, []);
+  },
+  addRecord(record: Choice) {
+    const newRecords: Choice[] = structuredClone(this.records);
+    newRecords.push(record);
+    set<Choice[]>(property.records, newRecords);
   },
 
   init() {
-    window.localStorage.removeItem(`${prefix}:${property.startTime}`);
-    window.localStorage.removeItem(`${prefix}:${property.finishTime}`);
-    window.localStorage.removeItem(`${prefix}:${property.quizIndex}`);
-    window.localStorage.removeItem(`${prefix}:${property.correctQuestions}`);
-    window.localStorage.removeItem(`${prefix}:${property.incorrectQuestions}`);
+    Object.values(property).forEach((key: string) => remove(key));
   },
 };
