@@ -23,14 +23,14 @@ export function Result() {
   ];
 
   return (
-    <Card sx={{ mt: 10 }}>
+    <Card sx={{ mt: 3 }}>
       <CardHeader title="결과" />
       <CardContent>
         <Typography variant="subtitle1">
           소요 시간: {getElapsedTime(startTime, finishTime)}
         </Typography>
-        <Typography variant="subtitle1">맞은 개수: {correctQuestions} 문항</Typography>
-        <Typography variant="subtitle1">틀린 개수: {incorrectQuestions} 문항</Typography>
+        <Typography variant="subtitle1">맞은 개수: {correctQuestions}문항</Typography>
+        <Typography variant="subtitle1">틀린 개수: {incorrectQuestions}문항</Typography>
 
         <ChartArea>
           <PieChart chartData={chartData} />

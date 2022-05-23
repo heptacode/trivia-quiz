@@ -3,7 +3,7 @@ import { Grid, Typography } from '@mui/material';
 export function NotFound() {
   return (
     <Grid container direction="column" justifyContent="center" alignItems="center">
-      <Typography component="h1" variant="h4" align="center">
+      <Typography variant="h4" align="center">
         404 Not Found
       </Typography>
 
