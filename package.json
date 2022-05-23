@@ -18,7 +18,6 @@
     "@nivo/core": "latest",
     "@nivo/pie": "latest",
     "@nivo/tooltip": "latest",
-    "axios": "latest",
     "d3-scale": "latest",
     "dayjs": "latest",
     "prop-types": "latest",

@@ -1,1 +1,0 @@
-export { getQuiz } from './getQuiz';
