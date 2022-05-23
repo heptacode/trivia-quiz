@@ -1,10 +1,35 @@
-import { Card, CardContent, CardHeader } from '@mui/material';
+import { RenderHTML } from '@/components/RenderHTML';
+import { RenderReviewChoiceItem } from '@/components/RenderReviewChoiceItem';
+import { useReview } from '@/hooks/useReview';
+import { Choice, Quiz } from '@/types';
+import { Box, Button, Card, CardContent, CardHeader, Typography } from '@mui/material';
 
 export function Review() {
+  const { quizzes, records, retry } = useReview();
+
   return (
-    <Card sx={{ mt: 10 }}>
-      <CardHeader title="결과" />
-      <CardContent></CardContent>
-    </Card>
+    <Box sx={{ mt: 3 }}>
+      <Typography variant="h5" align="center">
+        오답 노트
+      </Typography>
+
+      {quizzes.map((quiz: Quiz, quizIndex: number) => {
+        return (
+          <Card key={quizIndex} sx={{ mb: 3 }}>
+            <CardHeader title={<RenderHTML html={quiz.question} />} />
+            <CardContent>
+              {quiz.choices.map((choice: Choice, choiceIndex: number) => (
+                <RenderReviewChoiceItem
+                  choice={choice}
+                  record={records[quizIndex]}
+                  key={choiceIndex}
+                />
+              ))}
+            </CardContent>
+          </Card>
+        );
+      })}
+      <Button onClick={retry}>다시 풀기</Button>
+    </Box>
   );
 }
