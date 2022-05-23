@@ -1,3 +1,4 @@
+import { RenderHTML } from '@/components/RenderHTML';
 import { useQuiz } from '@/hooks/useQuiz';
 import { Choice } from '@/types';
 import { Check, KeyboardArrowRight } from '@mui/icons-material';
@@ -16,12 +17,11 @@ import {
 
 export function Quiz() {
   const {
+    quiz,
     quizIndex,
     quizLength,
-    question,
-    choice,
-    setChoice,
-    choices,
+    choiceValue,
+    setChoiceValue,
     submit,
     isCorrectSnackbarOpen,
     isIncorrectSnackbarOpen,
@@ -30,17 +30,20 @@ export function Quiz() {
 
   return (
     <>
-      <Card sx={{ mt: 10 }}>
-        <CardHeader title={<div dangerouslySetInnerHTML={{ __html: question }}></div>} />
+      <Card sx={{ mt: 3 }}>
+        <CardHeader title={<RenderHTML html={quiz?.question} />} />
         <CardContent>
-          <RadioGroup name="radio-buttons-group" onChange={event => setChoice(event.target.value)}>
-            {choices.map((choice: Choice, index: number) => {
+          <RadioGroup
+            name="radio-buttons-group"
+            onChange={event => setChoiceValue(event.target.value)}
+          >
+            {quiz?.choices.map((choice: Choice, index: number) => {
               return (
                 <FormControlLabel
                   key={index}
                   control={<Radio />}
                   value={choice.value}
-                  label={<div dangerouslySetInnerHTML={{ __html: choice.value }}></div>}
+                  label={<RenderHTML html={choice.value} />}
                 />
               );
             })}
@@ -52,7 +55,7 @@ export function Quiz() {
           activeStep={quizIndex}
           backButton={<></>}
           nextButton={
-            <Button size="small" onClick={submit} disabled={!choice}>
+            <Button size="small" onClick={submit} disabled={!choiceValue}>
               {quizIndex < quizLength - 1 ? (
                 <>
                   다음 문항 <KeyboardArrowRight />

@@ -7,13 +7,17 @@ import { useNavigate } from 'react-router-dom';
 export function useQuiz() {
   const navigate = useNavigate();
   const { quizIndex, setQuizIndex } = useGlobalStore();
-  const [question, setQuestion] = useState<string>('');
-  const [choice, setChoice] = useState<string>('');
-  const [choices, setChoices] = useState<Choice[]>([]);
+  const [quiz, setQuiz] = useState<Quiz>(localStorage.quizzes[quizIndex]);
+  const [choiceValue, setChoiceValue] = useState<string>();
   const [isCorrectSnackbarOpen, setIsCorrectSnackbarOpen] = useState<boolean>(false);
   const [isIncorrectSnackbarOpen, setIsIncorrectSnackbarOpen] = useState<boolean>(false);
-  let currentQuiz: Quiz = localStorage.quizzes[quizIndex];
   const quizLength: number = localStorage.quizzes.length;
+
+  useEffect(() => {
+    if (!localStorage.quizzes) {
+      return navigate('/');
+    }
+  }, []);
 
   useEffect(() => {
     if (quizIndex < 0) {
@@ -22,33 +26,24 @@ export function useQuiz() {
       return navigate('/result');
     }
 
-    currentQuiz = localStorage.quizzes[quizIndex];
-
-    setQuestion(currentQuiz.question);
-
-    const _choices: Choice[] = [];
-    _choices.push({ value: currentQuiz.correct_answer, isAnswer: true });
-    currentQuiz.incorrect_answers.forEach((incorrectAnswer: string) => {
-      _choices.push({ value: incorrectAnswer, isAnswer: false });
-    });
-    _choices.sort(() => Math.random() - 0.5);
-    setChoices(_choices);
+    setQuiz(localStorage.quizzes[quizIndex]);
   }, [quizIndex]);
 
   function submit() {
-    const isAnswer = choices.find((_choice: Choice) => _choice.value === choice)?.isAnswer;
+    const choice: Choice = quiz.choices.find(choice => choice.value === choiceValue)!;
+    localStorage.addRecord(choice);
 
-    if (isAnswer) {
-      localStorage.addCorrectQuestions();
+    if (choice.isAnswer) {
+      localStorage.addCorrectQuestion();
       setIsIncorrectSnackbarOpen(false);
       setIsCorrectSnackbarOpen(true);
     } else {
-      localStorage.addIncorrectQuestions();
+      localStorage.addIncorrectQuestion();
       setIsCorrectSnackbarOpen(false);
       setIsIncorrectSnackbarOpen(true);
     }
 
-    setChoice('');
+    setChoiceValue('');
 
     if (quizIndex < quizLength - 1) {
       setQuizIndex(quizIndex + 1);
@@ -69,12 +64,11 @@ export function useQuiz() {
   }
 
   return {
+    quiz,
     quizIndex,
     quizLength,
-    question,
-    choice,
-    setChoice,
-    choices,
+    choiceValue,
+    setChoiceValue,
     submit,
     isCorrectSnackbarOpen,
     isIncorrectSnackbarOpen,

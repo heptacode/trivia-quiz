@@ -1,21 +1,28 @@
-import { getQuiz } from '@/api';
+import { getQuiz } from '@/api/getQuiz';
 import { useGlobalStore } from '@/store/useGlobalStore';
 import { localStorage } from '@/store/useLocalStorage';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function useHome() {
   const navigate = useNavigate();
   const { setQuizIndex, init } = useGlobalStore();
+  const [isErrorDialogOpened, setIsErrorDialogOpened] = useState<boolean>(false);
 
   useEffect(() => init(), []);
 
-  function startQuiz() {
-    navigate('/quiz');
-    localStorage.setStartTime();
-    localStorage.setQuizzes(getQuiz.results);
-    setQuizIndex(0);
+  async function startQuiz() {
+    const quizzes = await getQuiz();
+
+    if (!!quizzes) {
+      localStorage.setQuizzes(quizzes);
+      setQuizIndex(0);
+      localStorage.setStartTime();
+      navigate('/quiz');
+    } else {
+      setIsErrorDialogOpened(true);
+    }
   }
 
-  return { startQuiz };
+  return { startQuiz, isErrorDialogOpened };
 }
