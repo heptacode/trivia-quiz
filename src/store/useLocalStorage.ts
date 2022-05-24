@@ -12,12 +12,15 @@ const property = {
 };
 
 function set<T>(key: string, value: T): void {
-  window.localStorage.setItem(`${prefix}:${key}`, JSON.stringify(value));
+  window.localStorage.setItem(
+    `${prefix}:${key}`,
+    typeof value === 'string' ? String(value) : JSON.stringify(value)
+  );
 }
 
 function get<T>(key: string, fallbackValue?: string | boolean | number | any[]): T {
   return JSON.parse(
-    window.localStorage.getItem(`${prefix}:${key}`) ?? JSON.stringify(fallbackValue)
+    window.localStorage.getItem(`${prefix}:${key}`) ?? JSON.stringify(fallbackValue ?? '')
   ) as T;
 }
 
