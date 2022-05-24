@@ -11,17 +11,20 @@ const property = {
   records: 'records',
 };
 
-function set<T>(key: string, value: T): void {
+function set<T = any>(key: string, value: T): void {
   window.localStorage.setItem(
     `${prefix}:${key}`,
-    typeof value === 'string' ? String(value) : JSON.stringify(value)
+    typeof value === 'string' ? value : JSON.stringify(value)
   );
 }
 
-function get<T>(key: string, fallbackValue?: string | boolean | number | any[]): T {
-  return JSON.parse(
-    JSON.stringify(window.localStorage.getItem(`${prefix}:${key}`) ?? fallbackValue)
-  ) as T;
+function get<T = any>(key: string, fallbackValue?: T): T {
+  const value = window.localStorage.getItem(`${prefix}:${key}`);
+  if (value === null || value === undefined) {
+    return fallbackValue as T;
+  }
+
+  return JSON.parse(value) as T;
 }
 
 function remove(key: string): void {
@@ -34,7 +37,7 @@ export const localStorage: LocalStorage = {
     return new Date(time);
   },
   setStartTime() {
-    set<string>(property.startTime, new Date().toISOString());
+    set<number>(property.startTime, new Date().getTime());
   },
 
   get finishTime(): Date {
@@ -42,7 +45,7 @@ export const localStorage: LocalStorage = {
     return new Date(time);
   },
   setFinishTime() {
-    set<string>(property.finishTime, new Date().toISOString());
+    set<number>(property.finishTime, new Date().getTime());
   },
 
   get quizzes(): Quiz[] {
@@ -60,7 +63,7 @@ export const localStorage: LocalStorage = {
   },
 
   get correctQuestions(): number {
-    return get<number>(property.correctQuestions, 0);
+    return get(property.correctQuestions, 0);
   },
   addCorrectQuestion() {
     set<number>(property.correctQuestions, this.correctQuestions + 1);
