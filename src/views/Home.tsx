@@ -1,24 +1,16 @@
 import { SimpleDialog } from '@/components/SimpleDialog';
 import { useHome } from '@/hooks/useHome';
-import { Box, Button, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 
 export function Home() {
   const { startQuiz, isErrorDialogOpened } = useHome();
 
   return (
     <>
-      <Box
-        sx={{
-          mt: 3,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
+      <Grid container direction="column" justifyContent="center" alignItems="center" height="100%">
         <Typography variant="h4">Trivia Quiz</Typography>
-
         <Button onClick={startQuiz}>시작하기</Button>
-      </Box>
+      </Grid>
 
       <SimpleDialog
         open={isErrorDialogOpened}

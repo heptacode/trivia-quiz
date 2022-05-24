@@ -1,7 +1,7 @@
 import { ChartArea, PieChart } from '@/components/charts';
 import { useResult } from '@/hooks/useResult';
 import { getElapsedTime } from '@/modules/getElapsedTime';
-import { Button, Card, CardContent, CardHeader, Typography } from '@mui/material';
+import { Button, Card, CardContent, CardHeader, Grid, Typography } from '@mui/material';
 import green from '@mui/material/colors/green';
 import red from '@mui/material/colors/red';
 
@@ -23,22 +23,24 @@ export function Result() {
   ];
 
   return (
-    <Card sx={{ mt: 3 }}>
-      <CardHeader title="결과" />
-      <CardContent>
-        <Typography variant="subtitle1">
-          소요 시간: {getElapsedTime(startTime, finishTime)}
-        </Typography>
-        <Typography variant="subtitle1">맞은 개수: {correctQuestions}문항</Typography>
-        <Typography variant="subtitle1">틀린 개수: {incorrectQuestions}문항</Typography>
+    <Grid container direction="column" justifyContent="center" height="100%">
+      <Card>
+        <CardHeader title="결과" />
+        <CardContent>
+          <Typography variant="subtitle1">
+            소요 시간: {getElapsedTime(startTime, finishTime)}
+          </Typography>
+          <Typography variant="subtitle1">맞은 개수: {correctQuestions}문항</Typography>
+          <Typography variant="subtitle1">틀린 개수: {incorrectQuestions}문항</Typography>
 
-        <ChartArea>
-          <PieChart chartData={chartData} />
-        </ChartArea>
+          <ChartArea>
+            <PieChart chartData={chartData} />
+          </ChartArea>
 
-        <Button onClick={retry}>다시 풀기</Button>
-        <Button onClick={review}>오답 노트</Button>
-      </CardContent>
-    </Card>
+          <Button onClick={retry}>다시 풀기</Button>
+          <Button onClick={review}>오답 노트</Button>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 }

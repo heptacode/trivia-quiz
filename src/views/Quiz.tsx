@@ -9,6 +9,7 @@ import {
   CardContent,
   CardHeader,
   FormControlLabel,
+  Grid,
   MobileStepper,
   Radio,
   RadioGroup,
@@ -30,45 +31,48 @@ export function Quiz() {
 
   return (
     <>
-      <Card sx={{ mt: 3 }}>
-        <CardHeader title={<RenderHTML html={quiz?.question} />} />
-        <CardContent>
-          <RadioGroup
-            name="radio-buttons-group"
-            onChange={event => setChoiceValue(event.target.value)}
-          >
-            {quiz?.choices.map((choice: Choice, index: number) => {
-              return (
-                <FormControlLabel
-                  key={index}
-                  control={<Radio />}
-                  value={choice.value}
-                  label={<RenderHTML html={choice.value} />}
-                />
-              );
-            })}
-          </RadioGroup>
-        </CardContent>
-        <MobileStepper
-          steps={quizLength}
-          position="static"
-          activeStep={quizIndex}
-          backButton={<></>}
-          nextButton={
-            <Button size="small" onClick={submit} disabled={!choiceValue}>
-              {quizIndex < quizLength - 1 ? (
-                <>
-                  다음 문항 <KeyboardArrowRight />
-                </>
-              ) : (
-                <>
-                  제출 <Check />
-                </>
-              )}
-            </Button>
-          }
-        />
-      </Card>
+      <Grid container direction="column" justifyContent="center" alignItems="center" height="100%">
+        <Card>
+          <CardHeader title={<RenderHTML html={quiz?.question} />} />
+          <CardContent>
+            <RadioGroup
+              name="radio-buttons-group"
+              onChange={event => setChoiceValue(event.target.value)}
+            >
+              {quiz?.choices?.map((choice: Choice, index: number) => {
+                return (
+                  <FormControlLabel
+                    key={index}
+                    control={<Radio />}
+                    value={choice.value}
+                    label={<RenderHTML html={choice.value} />}
+                  />
+                );
+              })}
+            </RadioGroup>
+          </CardContent>
+          <MobileStepper
+            steps={quizLength}
+            position="static"
+            activeStep={quizIndex}
+            backButton={<></>}
+            nextButton={
+              <Button size="small" onClick={submit} disabled={!choiceValue}>
+                {quizIndex < quizLength - 1 ? (
+                  <>
+                    다음 문항 <KeyboardArrowRight />
+                  </>
+                ) : (
+                  <>
+                    제출 <Check />
+                  </>
+                )}
+              </Button>
+            }
+          />
+        </Card>
+      </Grid>
+
       <Snackbar
         open={isCorrectSnackbarOpen}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
