@@ -5,10 +5,10 @@ import { Choice, Quiz } from '@/types';
 import { Box, Button, Card, CardContent, CardHeader, Typography } from '@mui/material';
 
 export function Review() {
-  const { quizzes, records, retry } = useReview();
+  const { quizzes, records, result, retry } = useReview();
 
   return (
-    <Box sx={{ mt: 3 }}>
+    <Box sx={{ mt: 12 }}>
       <Typography variant="h5" align="center">
         오답 노트
       </Typography>
@@ -29,6 +29,7 @@ export function Review() {
           </Card>
         );
       })}
+      <Button onClick={result}>결과 보기</Button>
       <Button onClick={retry}>다시 풀기</Button>
     </Box>
   );
