@@ -1,14 +1,15 @@
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import '@/i18n';
 import '@/index.css';
 import { Router } from '@/Router';
 import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
-import React from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  <StrictMode>
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="absolute">
         <Toolbar>
           <Typography variant="h6" noWrap>
             Trivia Quiz
@@ -16,8 +17,11 @@ createRoot(document.getElementById('root')!).render(
         </Toolbar>
       </AppBar>
     </Box>
-    <Container component="main" maxWidth="sm">
-      <Router />
+
+    <Container component="main" maxWidth="sm" sx={{ height: '100%' }}>
+      <ErrorBoundary>
+        <Router />
+      </ErrorBoundary>
     </Container>
-  </React.StrictMode>
+  </StrictMode>
 );
