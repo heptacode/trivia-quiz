@@ -20,7 +20,7 @@ function set<T>(key: string, value: T): void {
 
 function get<T>(key: string, fallbackValue?: string | boolean | number | any[]): T {
   return JSON.parse(
-    window.localStorage.getItem(`${prefix}:${key}`) ?? JSON.stringify(fallbackValue ?? '')
+    JSON.stringify(window.localStorage.getItem(`${prefix}:${key}`) ?? fallbackValue)
   ) as T;
 }
 
