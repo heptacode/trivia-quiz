@@ -22,6 +22,8 @@ function get<T = any>(key: string, fallbackValue?: T): T {
   const value = window.localStorage.getItem(`${prefix}:${key}`);
   if (value === null || value === undefined) {
     return fallbackValue as T;
+  } else if (typeof JSON.parse(JSON.stringify(value)) === 'string') {
+    return JSON.parse(JSON.stringify(value)) as T;
   }
 
   return JSON.parse(value) as T;
