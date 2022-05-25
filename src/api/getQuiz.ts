@@ -1,5 +1,5 @@
+import { getRequest } from '@/api/httpRequest';
 import { Quiz, QuizResponse, RawQuiz, ResponseCode } from '@/types';
-import { getRequest } from './httpRequest';
 
 export async function getQuiz(): Promise<Quiz[] | undefined> {
   try {
