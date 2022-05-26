@@ -7,7 +7,16 @@ import { useNavigate } from 'react-router-dom';
 
 export function useQuiz() {
   const navigate = useNavigate();
-  const { quizzes, setQuizzes, quizIndex, setQuizIndex } = useGlobalStore();
+  const {
+    setStartTime,
+    setFinishTime,
+    quizzes,
+    setQuizzes,
+    quizIndex,
+    setQuizIndex,
+    addCorrectQuestion,
+    addIncorrectQuestion,
+  } = useGlobalStore();
   const [quiz, setQuiz] = useState<Quiz>(quizzes[quizIndex]);
   const [choiceValue, setChoiceValue] = useState<string>();
   const [isCorrectSnackbarOpen, setIsCorrectSnackbarOpen] = useState<boolean>(false);
@@ -21,7 +30,7 @@ export function useQuiz() {
         if (!!quizzes) {
           setQuizzes(quizzes);
           setQuizIndex(0);
-          localStorage.setStartTime();
+          setStartTime();
         } else {
           throw new Error('퀴즈 데이터를 가져오지 못했어요.');
         }
@@ -46,11 +55,11 @@ export function useQuiz() {
     localStorage.addRecord(choice);
 
     if (choice.isAnswer) {
-      localStorage.addCorrectQuestion();
+      addCorrectQuestion();
       setIsIncorrectSnackbarOpen(false);
       setIsCorrectSnackbarOpen(true);
     } else {
-      localStorage.addIncorrectQuestion();
+      addIncorrectQuestion();
       setIsCorrectSnackbarOpen(false);
       setIsIncorrectSnackbarOpen(true);
     }
@@ -61,7 +70,7 @@ export function useQuiz() {
       setQuizIndex(quizIndex + 1);
     } else {
       setQuizIndex(quizIndex + 1);
-      localStorage.setFinishTime();
+      setFinishTime();
       navigate('/result');
     }
   }

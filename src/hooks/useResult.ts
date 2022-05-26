@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 export function useResult() {
   const navigate = useNavigate();
-  const { init } = useGlobalStore();
+  const { startTime, finishTime, correctQuestions, incorrectQuestions, init } = useGlobalStore();
 
   useEffect(() => {
     if (!localStorage.records) {
@@ -25,9 +25,9 @@ export function useResult() {
   return {
     retry,
     review,
-    startTime: localStorage.startTime,
-    finishTime: localStorage.finishTime,
-    correctQuestions: localStorage.correctQuestions,
-    incorrectQuestions: localStorage.incorrectQuestions,
+    startTime,
+    finishTime,
+    correctQuestions,
+    incorrectQuestions,
   };
 }

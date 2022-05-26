@@ -32,20 +32,18 @@ function remove(key: string): void {
 }
 
 export const localStorage: LocalStorage = {
-  get startTime(): Date {
-    const time = get<string>(property.startTime);
-    return new Date(time);
+  get startTime(): number {
+    return get<number>(property.startTime);
   },
-  setStartTime() {
-    set<number>(property.startTime, new Date().getTime());
+  setStartTime(startTime: number) {
+    set<number>(property.startTime, startTime);
   },
 
-  get finishTime(): Date {
-    const time = get<string>(property.finishTime);
-    return new Date(time);
+  get finishTime(): number {
+    return get<number>(property.finishTime);
   },
-  setFinishTime() {
-    set<number>(property.finishTime, new Date().getTime());
+  setFinishTime(finishTime: number) {
+    set<number>(property.finishTime, finishTime);
   },
 
   get quizzes(): Quiz[] {
