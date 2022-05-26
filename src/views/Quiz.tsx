@@ -43,7 +43,7 @@ export function Quiz() {
                 return (
                   <FormControlLabel
                     key={index}
-                    control={<Radio />}
+                    control={<Radio className="choice" />}
                     value={choice.value}
                     label={<RenderHTML html={choice.value} />}
                   />
@@ -57,7 +57,7 @@ export function Quiz() {
             activeStep={quizIndex}
             backButton={<></>}
             nextButton={
-              <Button size="small" onClick={submit} disabled={!choiceValue}>
+              <Button id="submit" size="small" onClick={submit} disabled={!choiceValue}>
                 {quizIndex < quizLength - 1 ? (
                   <>
                     다음 문항 <KeyboardArrowRight />

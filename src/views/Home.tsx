@@ -9,7 +9,9 @@ export function Home() {
     <>
       <Grid container direction="column" justifyContent="center" alignItems="center" height="100%">
         <Typography variant="h4">Trivia Quiz</Typography>
-        <Button onClick={startQuiz}>시작하기</Button>
+        <Button id="startQuiz" onClick={startQuiz}>
+          시작하기
+        </Button>
       </Grid>
 
       <SimpleDialog

@@ -2,7 +2,12 @@
   "compilerOptions": {
     "target": "esnext",
     "moduleResolution": "node",
-    "types": ["cypress"]
+    "types": ["cypress"],
+    "lib": ["esnext", "dom"],
+    "baseUrl": "../../",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": ["**/*.spec.ts"]
 }
