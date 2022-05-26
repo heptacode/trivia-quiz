@@ -2519,6 +2519,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cypress-localstorage-commands@npm:latest":
+  version: 1.7.0
+  resolution: "cypress-localstorage-commands@npm:1.7.0"
+  peerDependencies:
+    cypress: ">=2.1.0"
+  checksum: 395944883aa917519ea6ccaa8f1a4847c496b8e96bff0bf1e8ab80f89ce9a937462a09e075ffc8f85e176a257aa674355c9af4e3153139788c4d8ad15da86bff
+  languageName: node
+  linkType: hard
+
 "cypress@npm:latest":
   version: 9.7.0
   resolution: "cypress@npm:9.7.0"
@@ -6006,6 +6015,7 @@ __metadata:
     "@vitejs/plugin-react": latest
     axios: latest
     cypress: latest
+    cypress-localstorage-commands: latest
     d3-scale: latest
     dayjs: latest
     esbuild-darwin-64: latest

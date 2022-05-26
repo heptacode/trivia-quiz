@@ -30,15 +30,21 @@ export function Result() {
           <Typography variant="subtitle1">
             소요 시간: {getElapsedTime(startTime, finishTime)}
           </Typography>
-          <Typography variant="subtitle1">맞은 개수: {correctQuestions}문항</Typography>
-          <Typography variant="subtitle1">틀린 개수: {incorrectQuestions}문항</Typography>
+          <Typography id="correctQuestions" variant="subtitle1">
+            맞은 개수: {correctQuestions}문항
+          </Typography>
+          <Typography id="incorrectQuestions" variant="subtitle1">
+            틀린 개수: {incorrectQuestions}문항
+          </Typography>
 
           <ChartArea>
             <PieChart chartData={chartData} />
           </ChartArea>
 
           <Button onClick={retry}>다시 풀기</Button>
-          <Button onClick={review}>오답 노트</Button>
+          <Button id="review" onClick={review}>
+            오답 노트
+          </Button>
         </CardContent>
       </Card>
     </Grid>

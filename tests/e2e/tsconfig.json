@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "moduleResolution": "node",
-    "types": ["cypress"],
+    "types": ["cypress", "cypress-localstorage-commands"],
     "lib": ["esnext", "dom"],
     "baseUrl": "../../",
     "paths": {

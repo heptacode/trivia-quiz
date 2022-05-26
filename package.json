@@ -41,6 +41,7 @@
     "@types/react-dom": "latest",
     "@vitejs/plugin-react": "latest",
     "cypress": "latest",
+    "cypress-localstorage-commands": "latest",
     "esbuild-darwin-64": "latest",
     "jest": "latest",
     "prettier": "latest",

@@ -25,7 +25,13 @@ export function Review() {
       </Typography>
 
       <FormControlLabel
-        control={<Checkbox checked={showCorrectQuestions} onChange={toggleShowCorrectQuestions} />}
+        control={
+          <Checkbox
+            id="toggleCorrectQuestions"
+            checked={showCorrectQuestions}
+            onChange={toggleShowCorrectQuestions}
+          />
+        }
         label="맞은 문제 포함"
       />
 
@@ -33,7 +39,7 @@ export function Review() {
         if (showCorrectQuestions || (!showCorrectQuestions && !records[quizIndex].isAnswer)) {
           return (
             <Card key={quizIndex} sx={{ mb: 3 }}>
-              <CardHeader title={<RenderHTML html={quiz.question} />} />
+              <CardHeader className="question" title={<RenderHTML html={quiz.question} />} />
               <CardContent>
                 {quiz.choices.map((choice: Choice, choiceIndex: number) => (
                   <RenderReviewChoiceItem
@@ -49,7 +55,9 @@ export function Review() {
         return <Fragment key={quizIndex}></Fragment>;
       })}
       <Button onClick={result}>결과 보기</Button>
-      <Button onClick={retry}>다시 풀기</Button>
+      <Button id="retry" onClick={retry}>
+        다시 풀기
+      </Button>
     </Box>
   );
 }
