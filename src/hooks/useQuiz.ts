@@ -1,3 +1,4 @@
+import { getQuiz } from '@/api/getQuiz';
 import { useGlobalStore } from '@/store/useGlobalStore';
 import { localStorage } from '@/store/useLocalStorage';
 import { Choice, Quiz } from '@/types';
@@ -6,27 +7,38 @@ import { useNavigate } from 'react-router-dom';
 
 export function useQuiz() {
   const navigate = useNavigate();
-  const { quizIndex, setQuizIndex } = useGlobalStore();
-  const [quiz, setQuiz] = useState<Quiz>(localStorage.quizzes[quizIndex]);
+  const { quizzes, setQuizzes, quizIndex, setQuizIndex } = useGlobalStore();
+  const [quiz, setQuiz] = useState<Quiz>(quizzes[quizIndex]);
   const [choiceValue, setChoiceValue] = useState<string>();
   const [isCorrectSnackbarOpen, setIsCorrectSnackbarOpen] = useState<boolean>(false);
   const [isIncorrectSnackbarOpen, setIsIncorrectSnackbarOpen] = useState<boolean>(false);
-  const quizLength: number = localStorage.quizzes.length;
 
   useEffect(() => {
-    if (!localStorage.quizzes) {
-      return navigate('/');
+    if (!quizzes.length) {
+      (async function () {
+        const quizzes = await getQuiz();
+
+        if (!!quizzes) {
+          setQuizzes(quizzes);
+          setQuizIndex(0);
+          localStorage.setStartTime();
+        } else {
+          throw new Error('퀴즈 데이터를 가져오지 못했어요.');
+        }
+      })();
+    } else {
+      if (quizIndex < 0) {
+        return navigate('/');
+      } else if (quizIndex >= quizzes.length) {
+        return navigate('/result');
+      }
     }
   }, []);
 
   useEffect(() => {
-    if (quizIndex < 0) {
-      return navigate('/');
-    } else if (quizIndex >= quizLength) {
-      return navigate('/result');
+    if (quizIndex >= 0) {
+      setQuiz(quizzes[quizIndex]);
     }
-
-    setQuiz(localStorage.quizzes[quizIndex]);
   }, [quizIndex]);
 
   function submit() {
@@ -45,7 +57,7 @@ export function useQuiz() {
 
     setChoiceValue('');
 
-    if (quizIndex < quizLength - 1) {
+    if (quizIndex < quizzes.length - 1) {
       setQuizIndex(quizIndex + 1);
     } else {
       setQuizIndex(quizIndex + 1);
@@ -66,7 +78,7 @@ export function useQuiz() {
   return {
     quiz,
     quizIndex,
-    quizLength,
+    quizLength: quizzes.length,
     choiceValue,
     setChoiceValue,
     submit,

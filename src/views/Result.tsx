@@ -5,7 +5,7 @@ import { Button, Card, CardContent, CardHeader, Grid, Typography } from '@mui/ma
 import green from '@mui/material/colors/green';
 import red from '@mui/material/colors/red';
 
-export function Result() {
+export default function Result() {
   const { retry, review, startTime, finishTime, correctQuestions, incorrectQuestions } =
     useResult();
 

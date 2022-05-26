@@ -23,6 +23,8 @@ context('Overall', () => {
   });
 
   it('퀴즈가 잘 풀리는가', () => {
+    cy.get('.choice', { timeout: 10000 });
+
     for (let i = 0; i < 10; i++) {
       cy.get('.choice').first().click();
       cy.get('#submit').click();

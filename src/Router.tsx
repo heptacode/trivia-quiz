@@ -1,9 +1,11 @@
-import { ErrorPage } from '@/views/ErrorPage';
-import { Home } from '@/views/Home';
-import { Quiz } from '@/views/Quiz';
-import { Result } from '@/views/Result';
-import { Review } from '@/views/Review';
+import { lazy } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+const Home = lazy(() => import('@/views/Home'));
+const Quiz = lazy(() => import('@/views/Quiz'));
+const Result = lazy(() => import('@/views/Result'));
+const Review = lazy(() => import('@/views/Review'));
+const ErrorPage = lazy(() => import('@/views/ErrorPage'));
 
 export function Router() {
   return (

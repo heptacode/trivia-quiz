@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 
-export function ErrorPage() {
+export default function ErrorPage() {
   return (
     <Grid container direction="column" justifyContent="center" alignItems="center" height="100%">
       <Typography variant="h5" align="center">

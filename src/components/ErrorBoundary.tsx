@@ -1,7 +1,9 @@
-import { ErrorPage } from '@/views/ErrorPage';
 import { Component } from 'react';
 
-export class ErrorBoundary extends Component<{ children: any }, { hasError: boolean }> {
+export class ErrorBoundary extends Component<
+  { fallback?: any; children: any },
+  { hasError: boolean }
+> {
   constructor(props: any) {
     super(props);
     this.state = { hasError: false };
@@ -13,7 +15,7 @@ export class ErrorBoundary extends Component<{ children: any }, { hasError: bool
 
   render() {
     if (this.state.hasError) {
-      return <ErrorPage />;
+      return this.props.fallback;
     }
 
     return this.props.children;

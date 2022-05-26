@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { Fragment } from 'react';
 
-export function Review() {
+export default function Review() {
   const { quizzes, records, showCorrectQuestions, toggleShowCorrectQuestions, result, retry } =
     useReview();
 

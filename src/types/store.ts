@@ -1,6 +1,8 @@
 import { Choice, Quiz } from './quiz';
 
 export interface GlobalState {
+  quizzes: Quiz[];
+  setQuizzes: (quizzes: Quiz[]) => void;
   quizIndex: number;
   setQuizIndex: (quizIndex: number) => void;
   init: () => void;

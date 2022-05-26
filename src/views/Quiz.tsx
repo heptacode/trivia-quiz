@@ -1,3 +1,4 @@
+import { Loading } from '@/components/Loading';
 import { RenderHTML } from '@/components/RenderHTML';
 import { useQuiz } from '@/hooks/useQuiz';
 import { Choice } from '@/types';
@@ -16,7 +17,7 @@ import {
   Snackbar,
 } from '@mui/material';
 
-export function Quiz() {
+export default function Quiz() {
   const {
     quiz,
     quizIndex,
@@ -39,16 +40,20 @@ export function Quiz() {
               name="radio-buttons-group"
               onChange={event => setChoiceValue(event.target.value)}
             >
-              {quiz?.choices?.map((choice: Choice, index: number) => {
-                return (
-                  <FormControlLabel
-                    key={index}
-                    control={<Radio className="choice" />}
-                    value={choice.value}
-                    label={<RenderHTML html={choice.value} />}
-                  />
-                );
-              })}
+              {quiz ? (
+                quiz?.choices?.map((choice: Choice, index: number) => {
+                  return (
+                    <FormControlLabel
+                      key={index}
+                      control={<Radio className="choice" />}
+                      value={choice.value}
+                      label={<RenderHTML html={choice.value} />}
+                    />
+                  );
+                })
+              ) : (
+                <Loading />
+              )}
             </RadioGroup>
           </CardContent>
           <MobileStepper

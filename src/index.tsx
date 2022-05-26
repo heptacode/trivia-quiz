@@ -1,9 +1,11 @@
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { Loading } from '@/components/Loading';
 import '@/i18n';
 import '@/index.css';
 import { Router } from '@/Router';
+import ErrorPage from '@/views/ErrorPage';
 import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
-import { StrictMode } from 'react';
+import { StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 
 createRoot(document.getElementById('root')!).render(
@@ -19,8 +21,10 @@ createRoot(document.getElementById('root')!).render(
     </Box>
 
     <Container component="main" maxWidth="sm" sx={{ height: '100%' }}>
-      <ErrorBoundary>
-        <Router />
+      <ErrorBoundary fallback={<ErrorPage />}>
+        <Suspense fallback={<Loading />}>
+          <Router />
+        </Suspense>
       </ErrorBoundary>
     </Container>
   </StrictMode>
